@@ -1,0 +1,62 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  skills    String[] @default([])
+  interests String[] @default([])
+  experience String  @default("beginner") // beginner, intermediate, advanced
+  githubUsername String?
+  githubData Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  recommendationLogs RecommendationLog[]
+  
+  @@map("users")
+}
+
+model Internship {
+  id          String   @id @default(uuid())
+  title       String
+  company     String
+  description String   @db.Text
+  tags        String[] @default([])
+  techStack   String[] @default([])
+  location    String
+  stipend     String?
+  duration    String?
+  applyLink   String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  recommendationLogs RecommendationLog[]
+  
+  @@map("internships")
+}
+
+model RecommendationLog {
+  id                     String   @id @default(uuid())
+  userId                 String
+  recommendedInternships Json     // Array of internship IDs with scores
+  timestamp              DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  internship Internship? @relation(fields: [internshipId], references: [id])
+  internshipId String?
+  
+  @@map("recommendation_logs")
+}
+

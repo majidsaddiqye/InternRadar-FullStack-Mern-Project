@@ -1,4 +1,4 @@
-# InternRadar-FullStack-Mern-Project
+# InternRadar 🎯
 
 AI-powered internship recommendation platform built with MERN stack and PostgreSQL.
 

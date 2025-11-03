@@ -1,0 +1,348 @@
+{
+  "info": {
+    "name": "InternRadar API",
+    "description": "Complete API collection for InternRadar - AI-powered internship recommendation platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/signup",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "signup"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "me"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Profile",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"skills\": [\"JavaScript\", \"React\", \"Node.js\", \"Python\"],\n  \"interests\": [\"web-development\", \"machine-learning\", \"backend\"],\n  \"experience\": \"intermediate\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "GitHub Integration",
+      "item": [
+        {
+          "name": "Scan GitHub Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"octocat\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/github/scan",
+              "host": ["{{baseUrl}}"],
+              "path": ["github", "scan"]
+            }
+          }
+        },
+        {
+          "name": "Get GitHub Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/github/profile/octocat",
+              "host": ["{{baseUrl}}"],
+              "path": ["github", "profile", "octocat"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Internships",
+      "item": [
+        {
+          "name": "Get All Internships",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/internships?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["internships"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": "developer",
+                  "disabled": true
+                },
+                {
+                  "key": "tags",
+                  "value": "web-development,remote",
+                  "disabled": true
+                },
+                {
+                  "key": "techStack",
+                  "value": "React,Node.js",
+                  "disabled": true
+                },
+                {
+                  "key": "location",
+                  "value": "Remote",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Internship by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/internships/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["internships", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Filter Options",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/internships/filters/options",
+              "host": ["{{baseUrl}}"],
+              "path": ["internships", "filters", "options"]
+            }
+          }
+        },
+        {
+          "name": "Create Internship",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Software Development Intern\",\n  \"company\": \"Tech Startup Inc\",\n  \"description\": \"Join our team to work on exciting projects using modern technologies.\",\n  \"tags\": [\"software-development\", \"startup\", \"remote\"],\n  \"techStack\": [\"JavaScript\", \"React\", \"Node.js\", \"MongoDB\"],\n  \"location\": \"Remote\",\n  \"stipend\": \"₹20,000/month\",\n  \"duration\": \"6 months\",\n  \"applyLink\": \"https://example.com/apply\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/internships",
+              "host": ["{{baseUrl}}"],
+              "path": ["internships"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recommendations",
+      "item": [
+        {
+          "name": "Get Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/recommendations?limit=10&minScore=0&diverse=false",
+              "host": ["{{baseUrl}}"],
+              "path": ["recommendations"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "minScore",
+                  "value": "0"
+                },
+                {
+                  "key": "diverse",
+                  "value": "false"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Recommendation History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/recommendations/history?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["recommendations", "history"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    }
+  ]
+}
+
